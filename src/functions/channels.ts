@@ -93,6 +93,7 @@ interface GetChannelProps {
     messages: {
         id: number
         pathUrl: string
+        path: string
         transcript: string
         duration: number
         createdAt: Date
