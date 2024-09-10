@@ -1,0 +1,1 @@
+export const APP_ROUTES_WITHOUT_NAVBAR = [`/login`, `/`]

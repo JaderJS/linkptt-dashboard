@@ -15,7 +15,6 @@ export const ChannelsComponents = ({ channels, users }: { channels?: Channel[], 
         mutationFn: insertUserInChannel,
     })
 
-
     const { mutate: createChannelMutation } = useMutation({
         mutationFn: createChannel
     })
