@@ -1,9 +1,15 @@
 import { MenuIcon, MountainIcon } from "lucide-react"
 import { Button } from "../ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "../ui/sheet"
+import { Menubar, MenubarMenu, MenubarTrigger, MenubarItem } from "../ui/menubar"
+import { MenubarContent, MenubarSeparator } from "@radix-ui/react-menubar"
 import Link from "next/link"
+import { useAuth } from "@/provider/user"
 
 export const NavBar = () => {
+
+    const { logout } = useAuth()
+
     return (
 
         <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
@@ -54,9 +60,18 @@ export const NavBar = () => {
                 >
                     Ferramentas
                 </Link>
+                <Menubar className="border-0">
+                    <MenubarMenu>
+                        <MenubarTrigger>Perfil</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarSeparator />
+                            <MenubarItem onClick={() => logout()}> Logout</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
 
             </nav>
-        </header>
+        </header >
     )
 
 }

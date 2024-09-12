@@ -3,14 +3,14 @@
 import { Channel, ChannelProps, insertUserInChannel, createChannel } from "@/functions/channels"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 import { formatDistanceToNow as toNow } from "date-fns"
-import { ActivedUsersProps } from "@/functions/users"
+import { ActiveUsersProps } from "@/functions/users"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { useMutation } from "@tanstack/react-query"
 import { Button } from "../ui/button"
 import { UpsertChannelComponent } from "./upsert-channel"
 import Link from "next/link"
 
-export const ChannelsComponents = ({ channels, users }: { channels?: Channel[], users?: ActivedUsersProps[] }) => {
+export const ChannelsComponents = ({ channels, users }: { channels?: Channel[], users?: ActiveUsersProps[] }) => {
     const { mutate } = useMutation({
         mutationFn: insertUserInChannel,
     })

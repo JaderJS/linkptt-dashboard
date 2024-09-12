@@ -1,7 +1,7 @@
-import { ActivedUsersProps } from "@/functions/users"
+import { ActiveUsersProps } from "@/functions/users"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 
-export const UserComponents = ({ users }: { users?: ActivedUsersProps[] }) => {
+export const UserComponents = ({ users }: { users?: ActiveUsersProps[] }) => {
     return (
         <Table className="">
             <TableCaption>Lista com os usuários</TableCaption>

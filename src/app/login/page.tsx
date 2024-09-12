@@ -21,14 +21,11 @@ const loginSchema = z.object({
 })
 
 export default function Login() {
-    const router = useRouter()
     const { user, login, logout } = useAuth()
     const form = useForm<z.infer<typeof loginSchema>>({ resolver: zodResolver(loginSchema) })
 
     const submit = (data: any) => {
-        login({ email: data.email, password: "admin" }).then(() => {
-            router.push(`/dashboard`)
-        })
+        login({ email: data.email, password: "admin" })
     }
 
     return (

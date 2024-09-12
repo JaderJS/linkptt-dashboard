@@ -46,7 +46,7 @@ export interface Channel {
     owner: User
 }
 
-interface UsersToChannel {
+export interface UsersToChannel {
     userCuid: string
     channelCuid: string
     permission: string
@@ -114,6 +114,7 @@ interface GetChannelProps {
             avatarUrl: string
         }
     }[]
+    usersToChannels: UsersToChannel[]
 }
 
 export async function getChannel(cuid: string): Promise<GetChannelProps> {
