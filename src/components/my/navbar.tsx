@@ -6,6 +6,9 @@ import { MenubarContent, MenubarSeparator } from "@radix-ui/react-menubar"
 import Link from "next/link"
 import { useAuth } from "@/provider/user"
 
+import logo from "@/assets/logo.svg"
+import Image from "next/image"
+
 export const NavBar = () => {
 
     const { logout } = useAuth()
@@ -24,7 +27,8 @@ export const NavBar = () => {
                 </SheetTrigger>
                 <SheetContent side="left">
                     <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-                        <MountainIcon className="h-6 w-6" />
+                        {/* <MountainIcon className="h-6 w-6" /> */}
+                        <Image src={logo} alt="logo"/>
                         <span className="sr-only">LinkPTT</span>
                     </Link>
                     <div className="grid gap-2 py-6">
@@ -35,7 +39,8 @@ export const NavBar = () => {
                 </SheetContent>
             </Sheet>
             <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-                <MountainIcon className="h-6 w-6" />
+                {/* <MountainIcon className="h-6 w-6" /> */}
+                <Image src={logo} alt="logo" className="h-12 w-12"/>
                 <span className="sr-only">Acme Inc</span>
             </Link>
             <nav className="ml-auto hidden lg:flex gap-6">

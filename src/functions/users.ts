@@ -20,14 +20,17 @@ interface UserProps {
 
 interface LoginUserProps {
     msg: string
-    data: {
-        user: UserProps,
+    user: {
+        cuid: string
+        email: string
+        name: string
+        avatarUrl: string
         token: string
     }
 }
 
 export async function loginUser(body: { email: string, password: string }): Promise<LoginUserProps> {
-    const resp: AxiosResponse<LoginUserProps> = await api.post(`/user/login`, body)
+    const resp: AxiosResponse<LoginUserProps> = await api.post(`/login`, body)
     return resp.data
 }
 
@@ -36,7 +39,7 @@ export interface UpdateUserProps {
 }
 
 export async function updateUser({ cuid, body }: { cuid: string, body: UpdateUserProps }): Promise<{ msg: string }> {
-    const resp: AxiosResponse<{ msg: string }> = await api.post(`/user/${cuid}`, body)
+    const resp: AxiosResponse<{ msg: string }> = await api.put(`/user/${cuid}`, body)
     return resp.data
 }
 
@@ -46,7 +49,7 @@ interface MyUserProps {
 }
 
 export async function myUser(token: string): Promise<MyUserProps> {
-    const resp: AxiosResponse<MyUserProps> = await api.get(`/myuser`, { headers: { Authorization: `Bearer ${token}` } })
+    const resp: AxiosResponse<MyUserProps> = await api.get(`/user`, { headers: { Authorization: `Bearer ${token}` } })
     return resp.data
 }
 

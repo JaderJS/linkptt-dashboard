@@ -29,9 +29,12 @@ export const ImageUploader = ({ onUpdate, enable, src = PROFILE_URL }: ImageUplo
         const formData = new FormData()
         formData.append("image", event.target.files[0])
         uploadImageMutate(formData).then((resp) => {
+            console.log(resp)
             onUpdate?.(resp.image.pathUrl)
         })
     }
+
+    console.log("IMAGE", src)
 
     return (
         <div className="relative">

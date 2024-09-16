@@ -1,7 +1,7 @@
 import axios from "axios"
 import { getCookie } from "cookies-next"
 
-export const api = axios.create({ baseURL: `http://localhost:5050/api` })
+export const api = axios.create({ baseURL: `http://localhost:8000/api` })
 
 api.interceptors.request.use((req) => {
     const token = getCookie(`linkptt-dashboard`)

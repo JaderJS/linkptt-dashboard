@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { loginUser } from "@/functions/users"
+import { createOneTokenAccess } from "@/functions/channels"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
@@ -20,13 +20,13 @@ export default function Wrench() {
 }
 
 const GenerateTokenAccess = () => {
-    const { mutate, data, isSuccess } = useMutation({
-        mutationFn: loginUser
+    const { mutate, data } = useMutation({
+        mutationFn: createOneTokenAccess
     })
 
     const loginSchema = z.object({
         email: z.string().email(),
-        password: z.string().min(1)
+        password: z.string().min(3)
     })
 
     const form = useForm<z.infer<typeof loginSchema>>({
@@ -78,7 +78,7 @@ const GenerateTokenAccess = () => {
                                     </FormItem>
                                 )}
                             />
-                            <Textarea value={data?.data.token} className="w-full" />
+                            <Textarea value={data?.token} className="w-full" />
 
                             <Button type="submit" className="w-full">Novo Token</Button>
                         </form>

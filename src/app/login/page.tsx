@@ -13,7 +13,6 @@ import img2 from "@/assets/brand communication-bro.svg"
 import Image from "next/image"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { useAuth } from "@/provider/user"
-import { useRouter } from "next/navigation"
 
 const loginSchema = z.object({
     email: z.string().email(),
@@ -22,7 +21,12 @@ const loginSchema = z.object({
 
 export default function Login() {
     const { user, login, logout } = useAuth()
-    const form = useForm<z.infer<typeof loginSchema>>({ resolver: zodResolver(loginSchema) })
+    const form = useForm<z.infer<typeof loginSchema>>({
+        resolver: zodResolver(loginSchema), defaultValues: {
+            email: "",
+            password: ""
+        }
+    })
 
     const submit = (data: any) => {
         login({ email: data.email, password: "admin" })

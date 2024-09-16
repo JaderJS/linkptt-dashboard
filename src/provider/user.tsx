@@ -38,20 +38,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const login = async ({ email, password }: { email: string, password: string }): Promise<UserProps | undefined> => {
         try {
-            const { data } = await login_({ email, password })
+            const { msg, user } = await login_({ email, password })
             const user_: UserProps = {
-                cuid: data.user.cuid,
-                email: data.user.email,
-                name: data.user.name,
-                avatarUrl: data.user.avatarUrl
+                cuid: user.cuid,
+                email: user.email,
+                name: user.name,
+                avatarUrl: user.avatarUrl
             }
             setUser(user_)
-            setCookie('linkptt-dashboard', data.token)
+            setCookie('linkptt-dashboard', user.token)
             router.push(`/dashboard/channels`)
             return user_
         } catch (error: any) {
-            console.error(error)
-            toast(error.response?.data?.msg || "Ocorreu um erro")
+            toast(error.response?.data?.msg || error.response?.data?.message || "Ocorreu um erro")
         }
     }
 

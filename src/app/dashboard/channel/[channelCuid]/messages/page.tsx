@@ -5,37 +5,38 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { getChannel } from "@/functions/channels"
-import { deleteMessage } from "@/functions/message"
+import { deleteMessage, getManyMessagesToChannel } from "@/functions/message"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { formatDistanceToNow as toNow } from "date-fns"
 import { ArrowBigDown, ArrowBigLeft, Trash } from "lucide-react"
 import { toast } from "sonner"
 
 export default function Channel({ params: { channelCuid } }: { params: { channelCuid: string } }) {
+
     const queryClient = useQueryClient()
 
-    const { data: channel, refetch } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: [`get-channel-${channelCuid}`],
-        queryFn: () => getChannel(channelCuid),
+        queryFn: () => getManyMessagesToChannel(channelCuid),
     })
 
     const { mutate: deleteChannelMutate } = useMutation({
         mutationFn: deleteMessage,
         onError: (error) => toast(error.message),
-        // async onSuccess(_, variables) {
-        //     await queryClient.setQueryData([`get-channel-${channelCuid}`], (data: any) => {
-        //         const newData = data.messages.filter((val: any) => val.id !== variables)
-        //         const values = { ...data, messages: newData }
-        //         return values
-        //     })
-        // },
     })
+    
+    if (data?.channel?.messages?.length === 0) {
+        return (
+            <main className="flex items-center justify-center">
+                <p className="text-4xl font-mono font-semibold">Sem mensagens</p>
+            </main>
+        )
+    }
 
     return (
         <>
-
             <main className="flex flex-col gap-2 p-2">
-                {channel?.messages.map((message) => (
+                {data?.channel?.messages.map((message) => (
                     <Card key={message.id} className="relative p-2 ">
                         <Button onClick={() => { deleteChannelMutate(message.id) }} className="absolute -top-1 -right-1 rounded-full" size="icon">
                             <Trash />

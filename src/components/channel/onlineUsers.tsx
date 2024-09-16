@@ -6,7 +6,15 @@ import { ActiveUsersProps, AllUsersProps } from "@/functions/users"
 import { Badge } from "../ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 
-export const OnlineUsers = ({ users, allUsers, channelCuid }: { users: UsersToChannel[], allUsers: AllUsersProps[], channelCuid: string }) => {
+interface OnlineUsers {
+    cuid: string
+    name: string
+    email: string
+    avatarUrl: string
+    isOnline: boolean
+}
+
+export const OnlineUsers = ({ users, channelCuid }: { users: OnlineUsers[], channelCuid: string }) => {
 
     const { mutate: insertUserInChannelMutate } = useMutation({
         mutationFn: insertUserInChannel,
@@ -23,8 +31,8 @@ export const OnlineUsers = ({ users, allUsers, channelCuid }: { users: UsersToCh
                     <SelectValue placeholder="Selecione um usuário" />
                 </SelectTrigger>
                 <SelectContent>
-                    {allUsers?.map((user) => (
-                        <SelectItem key={user.cuid} value={user.cuid}>{user.name} - {user.email}</SelectItem>
+                    {users.map((user) => (
+                        <SelectItem value={ user.cuid} key={user.cuid}>{user.name} - {user.email}</SelectItem>
                     ))}
                 </SelectContent>
             </Select>
@@ -40,15 +48,15 @@ export const OnlineUsers = ({ users, allUsers, channelCuid }: { users: UsersToCh
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {users?.map(({ user }, index) => (
-                        <TableRow key={user.cuid}>
+                    {users?.map(({ cuid, email, isOnline, name }, index) => (
+                        <TableRow key={cuid}>
                             <TableCell>{index + 1}</TableCell>
                             <TableCell>
-                                <Badge>{true ? "Online" : "Offline"}</Badge>
+                                <Badge className={`${isOnline ? 'bg-emerald-500' : 'bg-red-500'}`}>{isOnline ? "Online" : "Offline"}</Badge>
                             </TableCell>
-                            <TableCell>{user.cuid}</TableCell>
-                            <TableCell>{user.email}</TableCell>
-                            <TableCell>{user.name}</TableCell>
+                            <TableCell>{cuid}</TableCell>
+                            <TableCell>{email}</TableCell>
+                            <TableCell>{name}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
