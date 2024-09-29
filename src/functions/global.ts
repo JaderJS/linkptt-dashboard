@@ -28,3 +28,4 @@ export async function uploadImage(formData: FormData): Promise<UploadImageProps>
     })
     return resp.data
 }
+

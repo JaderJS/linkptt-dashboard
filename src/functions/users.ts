@@ -7,7 +7,7 @@ export interface ActiveUsersProps {
     name: string
     isActive: boolean
 }
-export async function activedUsers(): Promise<ActiveUsersProps[]> {
+export async function activeUsers(): Promise<ActiveUsersProps[]> {
     return (await api.get(`/users`)).data.users
 }
 

@@ -7,9 +7,8 @@ import { getChannel, UpdateOneChannelProps } from "@/functions/channels"
 import { getAllUsers, updateUser, UpdateUserProps } from "@/functions/users"
 import { useAuth } from "@/provider/user"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { LinkIcon } from "lucide-react"
+import { LinkIcon, MessageSquareMore } from "lucide-react"
 import Link from "next/link"
-import { channel } from "diagnostics_channel"
 
 export default function Channel({ params: { channelCuid } }: { params: { channelCuid: string } }) {
 
@@ -36,12 +35,12 @@ export default function Channel({ params: { channelCuid } }: { params: { channel
                         updateOneChannelMutate({ profileUrl: pathUrl })
                     }} />}
                 <div className="flex flex-col p-4">
-                    {/* {channel && <HyperText
+                    {data && <HyperText
                         className="text-4xl font-bold text-black dark:text-white"
-                        text={channel?.name}
-                    />} */}
+                        text={data?.channel.name}
+                    />}
                     <Link href={`/dashboard/channel/${channelCuid}/messages`}>
-                        <LinkIcon />
+                        <MessageSquareMore className="h-10 w-10" />
                     </Link>
                     <p className="text-muted">{data?.channel?.cuid}</p>
                     <p className="font-mono">{data?.channel?.owner.name}</p>

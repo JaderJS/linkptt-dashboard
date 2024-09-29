@@ -14,16 +14,16 @@ export default function Channels() {
 
     const { data: channels, isLoading } = useQuery({ queryKey: ['channels_'], queryFn: getChannels })
 
-
     return (
-        <>
+        <main className="flex flex-col h-screen items-center p-12 space-y-12 ">
+            <p className="text-4xl font-mono font-bold">Canais</p>
             <UpsertChannelComponent />
-            <p className="text-2xl font-mono font-bold">Meus canais</p>
             <Table>
                 <TableCaption>Lista com os usuários</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead>*</TableHead>
+                        <TableHead>Profile</TableHead>
                         <TableHead>Cuid</TableHead>
                         <TableHead>Nome</TableHead>
                         <TableHead>Dono</TableHead>
@@ -35,6 +35,12 @@ export default function Channels() {
                     {channels?.map(({ cuid, name, owner, profileUrl, updatedAt, usersToChannels }, index) => (
                         <TableRow key={cuid}>
                             <TableCell>{index + 1}</TableCell>
+                            <TableCell>
+                                <Avatar>
+                                    <AvatarFallback>{name.slice(0, 2)}</AvatarFallback>
+                                    <AvatarImage src={profileUrl}/>
+                                </Avatar>
+                            </TableCell>
                             <TableCell>
                                 <Link href={`/dashboard/channel/${cuid}`} className="flex items-center gap-2">
                                     <LinkIcon className="h-4 w-4" />
@@ -64,7 +70,7 @@ export default function Channels() {
                     ))}
                 </TableBody>
             </Table>
-        </>
+        </main>
 
     )
 }
